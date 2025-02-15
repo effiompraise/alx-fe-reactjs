@@ -1,3 +1,4 @@
+import UserProfile from './components/UserProfile'
 import Header from './components/Header'
 import MainContent from './components/MainContent'
 import Footer from './components/Footer'
@@ -19,6 +20,18 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
+      <div>
+      <UserProfile 
+        name="Alice" 
+        age="25" 
+        bio="Loves hiking and photography" 
+      />
+      <UserProfile 
+        name="Bob" 
+        age="30" 
+        bio="Professional chef and food blogger" 
+      />
+    </div>
       <h1>Vite + React</h1>
       <WelcomeMessage />
       <Header />, <MainContent />, <Footer />
