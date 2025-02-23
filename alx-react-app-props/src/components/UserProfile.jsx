@@ -1,4 +1,8 @@
+import { useContext } from 'react';
+import { UserContext } from './UserContext';
+
 const UserProfile = (props) => {
+  const userData = useContext(UserContext);
   const profileStyles = {
     backgroundColor: 'white',
     border: '1px solid #ddd',
