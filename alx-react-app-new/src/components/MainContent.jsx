@@ -1,9 +1,19 @@
 function MainContent() {
+  const mainStyles = {
+    backgroundColor: '#f8f9fa',
+    padding: '2rem',
+    borderRadius: '8px',
+    marginBottom: '2rem',
+    textAlign: 'center'
+  };
+
   return (
-    <main style= {{ padding: '2rem', maxWidth: '800px', margin: '0 auto', backgroundColor: '#f9f9f9', borderRadius: '8px', minHeight: '400px' }}>
-      <p style={{ lineHeight: '1.6' }}>I love to visit New York, Paris, and Tokyo.</p>
+    <main style={mainStyles}>
+      <p style={{ fontSize: '1.2rem', color: '#2c3e50' }}>
+        I love to visit New York, Paris, and Tokyo.
+      </p>
     </main>
-  )
+  );
 }
 
 export default MainContent

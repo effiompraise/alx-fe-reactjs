@@ -10,6 +10,22 @@ import WelcomeMessage from './components/WelcomeMessage'
 function App() {
   const [count, setCount] = useState(0)
 
+  const appStyles = {
+    maxWidth: '1200px',
+    margin: '0 auto',
+    padding: '20px',
+    fontFamily: 'Arial, sans-serif'
+  };
+
+  const profileContainerStyles = {
+    display: 'flex',
+    justifyContent: 'center', // Centers horizontally
+    alignItems: 'center', // Centers vertically
+    gap: '20px', // Space between profiles
+    flexWrap: 'wrap', // Allows wrapping on smaller screens
+    margin: '2rem 0' // Add some vertical spacing
+  };
+
   return (
     <>
       <div>
@@ -19,19 +35,19 @@ function App() {
         <a href="https://react.dev" target="_blank">
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
+      </div>      
+      <div style={profileContainerStyles}>
+        <UserProfile 
+          name="Alice" 
+          age="25" 
+          bio="Loves hiking and photography" 
+        />
+        <UserProfile 
+          name="Bob" 
+          age="30" 
+          bio="Professional chef and food blogger" 
+        />
       </div>
-      <div>
-      <UserProfile 
-        name="Alice" 
-        age="25" 
-        bio="Loves hiking and photography" 
-      />
-      <UserProfile 
-        name="Bob" 
-        age="30" 
-        bio="Professional chef and food blogger" 
-      />
-    </div>
       <h1>Vite + React</h1>
       <WelcomeMessage />
       <Header />, <MainContent />, <Footer />
