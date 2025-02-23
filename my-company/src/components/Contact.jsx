@@ -18,74 +18,166 @@ const Contact = () => {
   };
 
   return (
-    <div style={{ padding: '20px'}}>
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-16">
-        <div className="max-w-2xl mx-auto">
-          <h1 className="text-4xl font-bold text-gray-900 mb-8 text-center">
-            Contact Us
+    <div style={{ 
+      minHeight: '100vh', 
+      backgroundColor: '#f9fafb',
+      padding: '2rem',
+      width: '100%'
+    }}>
+      <div style={{
+        maxWidth: '1280px',
+        margin: '0 auto',
+        padding: '6rem 1rem',
+        width: '100%'
+      }}>
+        <div style={{ 
+          textAlign: 'center', 
+          marginBottom: '4rem',
+          width: '100%'
+        }}>
+          <h1 style={{
+            fontSize: '3rem',
+            fontWeight: 700,
+            color: '#1f2937',
+            marginBottom: '1rem'
+          }}>
+            Let's Connect
           </h1>
-          <div className="bg-white rounded-lg shadow-md p-8">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Your name"
-                  style={{ display: 'block', margin: '10px 0' }}
-                />
-              </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="your@email.com"
-                  style={{ display: 'block', margin: '10px 0' }}
-                />
-              </div>
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows="4"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Your message"
-                  style={{ display: 'block', margin: '10px 0' }}
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
-              >
-                Send Message
-              </button>
-            </form>
-          </div>
+          <p style={{
+            fontSize: '1.125rem',
+            color: '#6b7280',
+            marginBottom: '1rem'
+          }}>
+            We'd love to hear about your next project
+          </p>
+          <div style={{
+            height: '4px',
+            width: '100px',
+            backgroundColor: '#2563eb',
+            margin: '0 auto',
+            borderRadius: '2px'
+          }} />
+        </div>
+
+        <div style={{
+          backgroundColor: 'white',
+          borderRadius: '1.5rem',
+          padding: '3rem',
+          boxShadow: '0 10px 15px rgba(0, 0, 0, 0.1)',
+          width: '100%',
+          maxWidth: '800px',
+          margin: '0 auto'
+        }}>
+          <form onSubmit={handleSubmit} style={{ 
+            display: 'grid', 
+            gap: '2rem',
+            width: '100%'
+          }}>
+            <div style={{ width: '100%' }}>
+              <label style={{
+                display: 'block',
+                fontSize: '0.875rem',
+                fontWeight: 500,
+                color: '#374151',
+                marginBottom: '0.5rem'
+              }}>
+                Name
+              </label>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                style={{
+                  width: '100%',
+                  padding: '0.75rem',
+                  border: '1px solid #e5e7eb',
+                  borderRadius: '0.5rem',
+                  fontSize: '1rem',
+                  backgroundColor: '#f9fafb'
+                }}
+                placeholder="John Doe"
+              />
+            </div>
+
+            <div style={{ width: '100%' }}>
+              <label style={{
+                display: 'block',
+                fontSize: '0.875rem',
+                fontWeight: 500,
+                color: '#374151',
+                marginBottom: '0.5rem'
+              }}>
+                Email
+              </label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                style={{
+                  width: '100%',
+                  padding: '0.75rem',
+                  border: '1px solid #e5e7eb',
+                  borderRadius: '0.5rem',
+                  fontSize: '1rem',
+                  backgroundColor: '#f9fafb'
+                }}
+                placeholder="john@company.com"
+              />
+            </div>
+
+            <div style={{ width: '100%' }}>
+              <label style={{
+                display: 'block',
+                fontSize: '0.875rem',
+                fontWeight: 500,
+                color: '#374151',
+                marginBottom: '0.5rem'
+              }}>
+                Message
+              </label>
+              <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                required
+                rows="5"
+                style={{
+                  width: '100%',
+                  padding: '0.75rem',
+                  border: '1px solid #e5e7eb',
+                  borderRadius: '0.5rem',
+                  fontSize: '1rem',
+                  resize: 'vertical',
+                  backgroundColor: '#f9fafb'
+                }}
+                placeholder="How can we help you?"
+              />
+            </div>
+
+            <button
+              type="submit"
+              style={{
+                backgroundColor: '#2563eb',
+                color: 'white',
+                padding: '1rem',
+                borderRadius: '0.5rem',
+                fontSize: '1rem',
+                fontWeight: 500,
+                border: 'none',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                width: '100%'
+              }}
+            >
+              Send Message
+            </button>
+          </form>
         </div>
       </div>
-    </div>
     </div>
   );
 };

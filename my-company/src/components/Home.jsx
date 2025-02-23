@@ -1,35 +1,76 @@
 import React from 'react';
 
 const Home = () => {
+  const cardStyle = {
+    backgroundColor: 'white',
+    borderRadius: '1rem',
+    padding: '2rem',
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+    transition: 'all 0.3s ease'
+  };
+
   return (
-    <div style={{ padding: '20px' }}>
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-16">
-        <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-4xl font-bold text-gray-900 mb-6">
-            Welcome to MyCompany
-          </h1>
-          <p className="text-xl text-gray-600 mb-8">
-            We are dedicated to delivering excellence in all our services. Our innovative solutions 
-            help businesses thrive in the digital age.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-lg font-semibold mb-3">Innovation</h3>
-              <p className="text-gray-600">Pushing boundaries with cutting-edge solutions</p>
+    <div style={{
+      minHeight: '100vh',
+      background: 'linear-gradient(to bottom, #f0f4ff, #ffffff)',
+      padding: '2rem'
+    }}>
+      <div style={{
+        maxWidth: '1280px',
+        margin: '0 auto',
+        padding: '6rem 1rem',
+        textAlign: 'center'
+      }}>
+        <h1 style={{
+          fontSize: '3rem',
+          fontWeight: 700,
+          color: '#1f2937',
+          marginBottom: '1.5rem'
+        }}>
+          Transform Your Business with 
+          <span style={{ color: '#2563eb' }}> Innovation</span>
+        </h1>
+        <p style={{
+          fontSize: '1.25rem',
+          color: '#4b5563',
+          marginBottom: '3rem',
+          lineHeight: 1.6
+        }}>
+          Leverage our expertise to accelerate your digital transformation and 
+          achieve sustainable growth in today's competitive landscape.
+        </p>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+          gap: '2rem',
+          marginTop: '3rem'
+        }}>
+          {['Innovation', 'Quality', 'Results'].map((title, index) => (
+            <div 
+              key={index}
+              style={{
+                ...cardStyle,
+                backgroundColor: index === 0 ? '#dbeafe' : 
+                                index === 1 ? '#ede9fe' : '#dcfce7'
+              }}
+            >
+              <h3 style={{
+                fontSize: '1.5rem',
+                fontWeight: 600,
+                color: '#1f2937',
+                marginBottom: '1rem'
+              }}>{title}</h3>
+              <p style={{ color: '#4b5563' }}>
+                {title === 'Innovation' 
+                  ? 'Pushing boundaries with cutting-edge solutions' 
+                  : title === 'Quality' 
+                  ? 'Delivering excellence in every project' 
+                  : 'Driving meaningful business outcomes'}
+              </p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-lg font-semibold mb-3">Quality</h3>
-              <p className="text-gray-600">Delivering excellence in every project</p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-lg font-semibold mb-3">Results</h3>
-              <p className="text-gray-600">Driving meaningful business outcomes</p>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
-    </div>
     </div>
   );
 };
