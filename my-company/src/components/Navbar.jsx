@@ -3,36 +3,47 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
-    <nav className="bg-gray-800 p-4">
-      <div className="container mx-auto flex justify-between items-center">
+    <nav style={{ backgroundColor: '#1F2937', padding: '1rem' }}>
+      <div 
+        style={{ 
+          display: 'flex', 
+          justifyContent: 'space-between', 
+          alignItems: 'center' 
+        }}
+        className="container mx-auto"
+      >
         <Link 
           to="/" 
-          className="text-white text-xl font-bold"
+          style={{ color: 'white', fontSize: '1.25rem', fontWeight: 'bold' }}
         >
           MyCompany
         </Link>
         <div className="space-x-6">
           <Link 
             to="/" 
-            className="text-gray-300 hover:text-white transition-colors"
+            style={{ color: '#D1D5DB' }}
+            className="hover:text-white transition-colors"
           >
             Home
           </Link>
           <Link 
             to="/about" 
-            className="text-gray-300 hover:text-white transition-colors"
+            style={{ color: '#D1D5DB' }}
+            className="hover:text-white transition-colors"
           >
             About
           </Link>
           <Link 
             to="/services" 
-            className="text-gray-300 hover:text-white transition-colors"
+            style={{ color: '#D1D5DB' }}
+            className="hover:text-white transition-colors"
           >
             Services
           </Link>
           <Link 
             to="/contact" 
-            className="text-gray-300 hover:text-white transition-colors"
+            style={{ color: '#D1D5DB' }}
+            className="hover:text-white transition-colors"
           >
             Contact
           </Link>
