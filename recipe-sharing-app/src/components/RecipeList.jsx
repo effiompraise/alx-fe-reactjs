@@ -1,5 +1,5 @@
 import React from 'react';
-import useRecipeStore from '../store/recipeStore';
+import useRecipeStore from './recipeStore';
 
 const RecipeList = () => {
   // Get the recipes from our store
