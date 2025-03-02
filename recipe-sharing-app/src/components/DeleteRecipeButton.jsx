@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useRecipeStore from './recipeStore';
 
 const DeleteRecipeButton = ({ recipeId, onDelete }) => {
   // Get the deleteRecipe function from our store
   const deleteRecipe = useRecipeStore(state => state.deleteRecipe);
+  
+  // Add navigation functionality
+  const navigate = useNavigate();
   
   // State to track if confirmation dialog is open
   const [showConfirm, setShowConfirm] = useState(false);
@@ -12,10 +16,16 @@ const DeleteRecipeButton = ({ recipeId, onDelete }) => {
     // Delete the recipe
     deleteRecipe(recipeId);
     
-    // Call the onDelete callback (usually to navigate away)
-    if (onDelete) onDelete();
+    // Call the onDelete callback if provided
+    if (onDelete) {
+      onDelete();
+    } else {
+      // Default navigation if no callback is provided
+      navigate('/recipes'); // Or whatever path you want to navigate to
+    }
   };
 
+  // Rest of your component remains the same
   if (!showConfirm) {
     return (
       <button 
