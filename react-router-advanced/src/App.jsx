@@ -17,7 +17,7 @@ import {
   ProfileDetails, 
   ProfileSettings, 
   Blog, 
-  Posts, 
+  BlogPost, 
   NotFound 
 } from './components/Pages';
 import './App.css';
