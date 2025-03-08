@@ -1,82 +1,47 @@
-import React from 'react';
-import { 
-  BrowserRouter as Router, 
-  Routes, 
-  Route,
-  Link,
-  Navigate
-} from 'react-router-dom';
-import { AuthProvider, useAuth } from './components/AuthContext';
+import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
+import Home from './components/Home';
+import Posts from './components/Posts';
+import PostDetails from './components/PostDetails';
+import Profile from './components/Profile';
+import ProfileDetails from './components/ProfileDetails';
+import ProfileSettings from './components/ProfileSettings';
+import Login from './components/Login';
 import ProtectedRoute from './components/ProtectedRoute';
-import { 
-  Home, 
-  Login, 
-  Profile, 
-  ProfileDetails, 
-  ProfileSettings, 
-  Blog, 
-  BlogPost, 
-  NotFound 
-} from './components/Pages';
-import './App.css';
 
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Layout />,
+    children: [
+      { index: true, element: <Home /> },
+      { path: 'posts', element: <Posts /> },
+      { path: 'posts/:postId', element: <PostDetails /> },
+      { 
+        path: 'profile',
+        element: <ProtectedRoute><Profile /></ProtectedRoute>,
+        children: [
+          { index: true, element: <ProfileDetails /> },
+          { path: 'settings', element: <ProfileSettings /> }
+        ]
+      },
+      { path: 'login', element: <Login /> }
+    ]
+  }
+]);
 
-const Navigation = () => {
-  const { user } = useAuth();
-  
+function Layout() {
   return (
-    <nav className="navbar">
-      <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/blog">Blog</Link></li>
-        {user ? (
-          <li><Link to="/profile">Profile</Link></li>
-        ) : (
-          <li><Link to="/login">Login</Link></li>
-        )}
-      </ul>
-    </nav>
-  );
-};
-
-function App() {
-  return (
-    <AuthProvider>
-      <Router>
-        <div className="app-container">
-          <Navigation />
-          
-          <main className="content">
-            <Routes>
-              {/* Basic route */}
-              <Route path="/" element={<Home />} />
-              
-              {/* Login route */}
-              <Route path="/login" element={<Login />} />
-              
-              {/* Protected routes */}
-              <Route path="/profile" element={
-                <ProtectedRoute>
-                  <Profile />
-                </ProtectedRoute>
-              }>
-                {/* Nested routes */}
-                <Route index element={<ProfileDetails />} />
-                <Route path="settings" element={<ProfileSettings />} />
-              </Route>
-              
-              {/* Dynamic routes */}
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/blog/:postId" element={<BlogPost />} />
-              
-              {/* 404 route */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
-        </div>
-      </Router>
-    </AuthProvider>
+    <div>
+      <nav>
+        <Link to="/">Home</Link>
+        <Link to="/posts">Posts</Link>
+        <Link to="/profile">Profile</Link>
+      </nav>
+      <Outlet />
+    </div>
   );
 }
 
-export default App;
+export default function App() {
+  return <RouterProvider router={router} />;
+}
