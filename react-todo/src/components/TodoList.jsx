@@ -1,33 +1,7 @@
 import { useState } from 'react';
 
 const TodoList = () => {
-  const [todos, setTodos] = useState([
-    { id: 1, text: 'Learn React', completed: false },
-    { id: 2, text: 'Build a Todo App', completed: true }
-  ]);
-  const [newTodo, setNewTodo] = useState('');
-
-  const addTodo = (e) => {
-    e.preventDefault();
-    if (newTodo.trim()) {
-      setTodos([...todos, {
-        id: Date.now(),
-        text: newTodo,
-        completed: false
-      }]);
-      setNewTodo('');
-    }
-  };
-
-  const toggleTodo = (id) => {
-    setTodos(todos.map(todo =>
-      todo.id === id ? { ...todo, completed: !todo.completed } : todo
-    ));
-  };
-
-  const deleteTodo = (id) => {
-    setTodos(todos.filter(todo => todo.id !== id));
-  };
+  // ... existing state and functions ...
 
   return (
     <div className="todo-container">
@@ -38,21 +12,36 @@ const TodoList = () => {
           value={newTodo}
           onChange={(e) => setNewTodo(e.target.value)}
           placeholder="Add new todo"
+          aria-label="New todo input"
         />
-        <button type="submit">Add Todo</button>
+        <button type="submit" aria-label="Add todo">
+          Add Todo
+        </button>
       </form>
-      <ul>
+      <ul role="list">
         {todos.map(todo => (
-          <li key={todo.id} className={todo.completed ? 'completed' : ''}>
-            <span onClick={() => toggleTodo(todo.id)}>
+          <li 
+            key={todo.id} 
+            className={todo.completed ? 'completed' : ''}
+            role="listitem"
+          >
+            <span 
+              onClick={() => toggleTodo(todo.id)}
+              role="button" 
+              tabIndex={0}
+              aria-label={`Toggle ${todo.text}`}
+            >
               {todo.text}
             </span>
-            <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+            <button 
+              onClick={() => deleteTodo(todo.id)}
+              aria-label={`Delete ${todo.text}`}
+            >
+              Delete
+            </button>
           </li>
         ))}
       </ul>
     </div>
   );
 };
-
-export default TodoList;

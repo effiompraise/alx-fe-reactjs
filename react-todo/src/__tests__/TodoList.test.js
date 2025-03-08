@@ -9,32 +9,33 @@ describe('TodoList Component', () => {
     expect(screen.getByText('Build a Todo App')).toBeInTheDocument();
   });
 
-  test('adds new todo', () => {
+  test('adds new todo', async () => {
     render(<TodoList />);
     const input = screen.getByPlaceholderText('Add new todo');
-    const addButton = screen.getByText('Add Todo');
+    const addButton = screen.getByRole('button', { name: /add todo/i });
     
     fireEvent.change(input, { target: { value: 'New Test Todo' } });
     fireEvent.click(addButton);
     
-    expect(screen.getByText('New Test Todo')).toBeInTheDocument();
+    expect(await screen.findByText('New Test Todo')).toBeInTheDocument();
   });
 
   test('toggles todo completion', () => {
     render(<TodoList />);
-    const todo = screen.getByText('Learn React');
+    const todoText = screen.getByText('Learn React');
+    const listItem = todoText.closest('li');
     
-    fireEvent.click(todo);
-    expect(todo).toHaveClass('completed');
+    fireEvent.click(todoText);
+    expect(listItem).toHaveClass('completed');
     
-    fireEvent.click(todo);
-    expect(todo).not.toHaveClass('completed');
+    fireEvent.click(todoText);
+    expect(listItem).not.toHaveClass('completed');
   });
 
   test('does not add empty todo', () => {
     render(<TodoList />);
     const initialItems = screen.getAllByRole('listitem').length;
-    const addButton = screen.getByText('Add Todo');
+    const addButton = screen.getByRole('button', { name: /add todo/i });
     
     fireEvent.click(addButton);
     const currentItems = screen.getAllByRole('listitem').length;
@@ -44,11 +45,11 @@ describe('TodoList Component', () => {
 
   test('deletes todo', () => {
     render(<TodoList />);
-    const deleteButtons = screen.getAllByText('Delete');
+    const deleteButtons = screen.getAllByRole('button', { name: /delete/i });
     const initialCount = deleteButtons.length;
     
     fireEvent.click(deleteButtons[0]);
-    const remainingTodos = screen.getAllByText('Delete');
+    const remainingTodos = screen.getAllByRole('button', { name: /delete/i });
     
     expect(remainingTodos.length).toBe(initialCount - 1);
   });
