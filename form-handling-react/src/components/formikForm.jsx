@@ -2,7 +2,7 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-
+// Validation schema using Yup
 const validationSchema = Yup.object({
   username: Yup.string().required('Username is required'),
   email: Yup.string().email('Invalid email format').required('Email is required'),
@@ -10,16 +10,16 @@ const validationSchema = Yup.object({
 });
 
 const FormikForm = () => {
-  
+  // Initial form values
   const initialValues = {
     username: '',
     email: '',
     password: ''
   };
 
-  
+  // Handle form submission
   const handleSubmit = (values, { setSubmitting, resetForm }) => {
-    
+    // Mock API call
     setTimeout(() => {
       console.log('Form submitted successfully:', values);
       resetForm();
