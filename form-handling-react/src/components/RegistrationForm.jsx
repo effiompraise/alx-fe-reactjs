@@ -9,6 +9,9 @@ const RegistrationForm = () => {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Destructure formData for easier access
+  const { username, email, password } = formData;
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -17,11 +20,12 @@ const RegistrationForm = () => {
     });
   };
 
+  // Validate form
   const validateForm = () => {
     let tempErrors = {};
-    if (!formData.username) tempErrors.username = 'Username is required';
-    if (!formData.email) tempErrors.email = 'Email is required';
-    if (!formData.password) tempErrors.password = 'Password is required';
+    if (!username) tempErrors.username = 'Username is required';
+    if (!email) tempErrors.email = 'Email is required';
+    if (!password) tempErrors.password = 'Password is required';
     
     setErrors(tempErrors);
     return Object.keys(tempErrors).length === 0;
@@ -49,6 +53,7 @@ const RegistrationForm = () => {
             type="text"
             id="username"
             name="username"
+            value={username}
             onChange={handleChange}
           />
           {errors.username && <p className="error">{errors.username}</p>}
@@ -60,6 +65,7 @@ const RegistrationForm = () => {
             type="email"
             id="email"
             name="email"
+            value={email}
             onChange={handleChange}
           />
           {errors.email && <p className="error">{errors.email}</p>}
@@ -71,6 +77,7 @@ const RegistrationForm = () => {
             type="password"
             id="password"
             name="password"
+            value={password}
             onChange={handleChange}
           />
           {errors.password && <p className="error">{errors.password}</p>}
