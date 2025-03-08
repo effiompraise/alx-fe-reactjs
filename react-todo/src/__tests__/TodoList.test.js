@@ -31,6 +31,17 @@ describe('TodoList Component', () => {
     expect(todo).not.toHaveClass('completed');
   });
 
+  test('does not add empty todo', () => {
+    render(<TodoList />);
+    const initialItems = screen.getAllByRole('listitem').length;
+    const addButton = screen.getByText('Add Todo');
+    
+    fireEvent.click(addButton);
+    const currentItems = screen.getAllByRole('listitem').length;
+    
+    expect(currentItems).toBe(initialItems);
+  });
+
   test('deletes todo', () => {
     render(<TodoList />);
     const deleteButtons = screen.getAllByText('Delete');
