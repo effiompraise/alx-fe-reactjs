@@ -9,7 +9,6 @@ const RegistrationForm = () => {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -18,7 +17,6 @@ const RegistrationForm = () => {
     });
   };
 
-  // Validate form
   const validateForm = () => {
     let tempErrors = {};
     if (!formData.username) tempErrors.username = 'Username is required';
@@ -29,15 +27,12 @@ const RegistrationForm = () => {
     return Object.keys(tempErrors).length === 0;
   };
 
- 
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     
     if (validateForm()) {
-      
       console.log('Form submitted successfully:', formData);
-    
       setFormData({ username: '', email: '', password: '' });
     }
     
@@ -54,7 +49,6 @@ const RegistrationForm = () => {
             type="text"
             id="username"
             name="username"
-            value={formData.username}
             onChange={handleChange}
           />
           {errors.username && <p className="error">{errors.username}</p>}
@@ -66,7 +60,6 @@ const RegistrationForm = () => {
             type="email"
             id="email"
             name="email"
-            value={formData.email}
             onChange={handleChange}
           />
           {errors.email && <p className="error">{errors.email}</p>}
@@ -78,7 +71,6 @@ const RegistrationForm = () => {
             type="password"
             id="password"
             name="password"
-            value={formData.password}
             onChange={handleChange}
           />
           {errors.password && <p className="error">{errors.password}</p>}
