@@ -3,24 +3,132 @@
       "id": 1,
       "title": "Spaghetti Carbonara",
       "summary": "A classic Italian pasta dish with eggs, cheese, bacon, and black pepper.",
-      "image": "https://images.pexels.com/photos/998246/pexels-photo-998246.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+      "image": "https://images.pexels.com/photos/998246/pexels-photo-998246.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "ingredients": [
+        "400g spaghetti",
+        "200g pancetta or guanciale, diced",
+        "4 large eggs",
+        "100g Pecorino Romano cheese, grated",
+        "50g Parmesan cheese, grated",
+        "Freshly ground black pepper",
+        "Salt to taste"
+      ],
+      "instructions": [
+        "Bring a large pot of salted water to boil and cook the spaghetti according to package instructions until al dente.",
+        "While the pasta is cooking, heat a large skillet over medium heat and cook the pancetta until crispy, about 5-7 minutes.",
+        "In a bowl, whisk together the eggs, grated Pecorino Romano, and Parmesan. Season with plenty of black pepper.",
+        "Once the pasta is done, reserve 1/2 cup of pasta water, then drain the pasta.",
+        "Working quickly, add the hot pasta to the skillet with the pancetta, away from the heat. Toss to coat in the rendered fat.",
+        "Add the egg and cheese mixture, stirring constantly. The residual heat will cook the eggs into a creamy sauce.",
+        "Add a splash of reserved pasta water if needed to thin the sauce.",
+        "Serve immediately with additional grated cheese and black pepper on top."
+      ],
+      "prepTime": "10 minutes",
+      "cookTime": "15 minutes",
+      "servings": 4
     },
     {
       "id": 2,
       "title": "Chicken Tikka Masala",
       "summary": "Chunks of grilled chicken (tikka) cooked in a smooth buttery & creamy tomato based gravy.",
-      "image": "https://images.pexels.com/photos/5031943/pexels-photo-5031943.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+      "image": "https://images.pexels.com/photos/5031943/pexels-photo-5031943.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "ingredients": [
+      "800g boneless chicken thighs, cut into bite-sized pieces",
+      "2 cups plain yogurt",
+      "3 tbsp lemon juice",
+      "4 tsp cumin powder",
+      "4 tsp ground coriander",
+      "4 tsp paprika",
+      "2 tsp turmeric",
+      "2 tsp garam masala",
+      "1 tsp ground ginger",
+      "4 garlic cloves, minced",
+      "2 tbsp vegetable oil",
+      "1 large onion, diced",
+      "2 cups tomato sauce",
+      "1 cup heavy cream",
+      "Fresh cilantro for garnish"
+    ],
+    "instructions": [
+      "In a large bowl, combine yogurt, lemon juice, cumin, coriander, paprika, turmeric, garam masala, ginger, and garlic to create a marinade.",
+      "Add chicken pieces to the marinade, coating well. Cover and refrigerate for at least 2 hours, preferably overnight.",
+      "Preheat oven to 425°F (220°C). Line a baking sheet with foil and place marinated chicken pieces on it.",
+      "Bake for 15 minutes or until chicken is cooked through with slightly charred edges.",
+      "While chicken is baking, heat oil in a large pan over medium heat. Add diced onion and sauté until soft and translucent.",
+      "Add tomato sauce and bring to a simmer. Cook for 10-15 minutes until the sauce thickens slightly.",
+      "Stir in the cream and simmer for another 5 minutes.",
+      "Add the baked chicken pieces to the sauce and simmer for 5 more minutes to let the flavors meld.",
+      "Serve hot with rice or naan, garnished with fresh cilantro."
+    ],
+    "prepTime": "20 minutes (plus marinating time)",
+    "cookTime": "40 minutes",
+    "servings": 6
     },
     {
         "id": 3,
         "title": "Vegetable Stir Fry",
         "summary": "A quick and healthy mix of fresh vegetables cooked in a savory sauce.",
-        "image": "https://images.pexels.com/photos/10695887/pexels-photo-10695887.jpeg"
+        "image": "https://images.pexels.com/photos/10695887/pexels-photo-10695887.jpeg",
+        "ingredients": [
+      "2 tbsp vegetable oil",
+      "2 garlic cloves, minced",
+      "1 tbsp fresh ginger, grated",
+      "1 carrot, julienned",
+      "1 bell pepper, sliced",
+      "1 cup broccoli florets",
+      "1 cup snap peas",
+      "1 cup sliced mushrooms",
+      "1/2 cup water chestnuts, drained",
+      "3 tbsp soy sauce",
+      "1 tbsp oyster sauce",
+      "1 tsp sesame oil",
+      "1 tbsp cornstarch mixed with 2 tbsp water",
+      "Sesame seeds for garnish"
+    ],
+    "instructions": [
+      "Heat oil in a large wok or skillet over high heat.",
+      "Add garlic and ginger, stir-fry for 30 seconds until fragrant.",
+      "Add carrots and stir-fry for 1 minute.",
+      "Add bell pepper, broccoli, and snap peas. Stir-fry for 2-3 minutes until vegetables begin to soften.",
+      "Add mushrooms and water chestnuts, continue stir-frying for 2 minutes.",
+      "In a small bowl, mix soy sauce, oyster sauce, and sesame oil.",
+      "Pour sauce mixture over vegetables and toss to coat.",
+      "Add cornstarch slurry and stir until sauce thickens, about 1 minute.",
+      "Garnish with sesame seeds and serve hot over rice or noodles."
+    ],
+    "prepTime": "15 minutes",
+    "cookTime": "10 minutes",
+    "servings": 4
       },
       {
         "id": 4,
         "title": "Chocolate Brownie",
         "summary": "Rich, fudgy chocolate brownies with a crackly top and gooey center.",
-        "image": "https://images.pexels.com/photos/27359377/pexels-photo-27359377/free-photo-of-sweet-brownie-cake-with-chocolate-sauce.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+        "image": "https://images.pexels.com/photos/27359377/pexels-photo-27359377/free-photo-of-sweet-brownie-cake-with-chocolate-sauce.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "ingredients": [
+      "200g unsalted butter",
+      "200g dark chocolate, chopped",
+      "3 large eggs",
+      "275g granulated sugar",
+      "1 tsp vanilla extract",
+      "100g all-purpose flour",
+      "30g cocoa powder",
+      "1/2 tsp salt",
+      "100g chocolate chips (optional)"
+    ],
+    "instructions": [
+      "Preheat oven to 350°F (175°C). Line an 8-inch square baking pan with parchment paper.",
+      "In a heatproof bowl over simmering water (or in microwave), melt butter and dark chocolate together. Stir until smooth, then set aside to cool slightly.",
+      "In a large bowl, whisk eggs and sugar until pale and doubled in volume, about 2-3 minutes.",
+      "Stir in the vanilla extract and the melted chocolate mixture.",
+      "Sift in the flour, cocoa powder, and salt. Fold gently until just combined.",
+      "If using, fold in the chocolate chips.",
+      "Pour the batter into the prepared pan and smooth the top.",
+      "Bake for 25-30 minutes, or until a toothpick inserted in the center comes out with a few moist crumbs.",
+      "Allow to cool completely in the pan before cutting into squares."
+    ],
+    "prepTime": "15 minutes",
+    "cookTime": "30 minutes",
+    "servings": 16
       }
   ]
