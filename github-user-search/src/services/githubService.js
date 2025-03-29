@@ -1,75 +1,45 @@
 import axios from 'axios';
 
-
-const BASE_URL = 'https://api.github.com';
-
-/**
- * Fetch data for a specific GitHub user
- * @param {string} username - GitHub username to search for
- * @returns {Promise<Object>} - User data from GitHub API
- */
 export const fetchUserData = async (username) => {
   try {
-    
-    const headers = {};
-    if (import.meta.env.VITE_APP_GITHUB_API_KEY) {
-      headers.Authorization = `token ${import.meta.env.VITE_APP_GITHUB_API_KEY}`;
-    }
-    
-    const response = await axios.get(`${BASE_URL}/users/${username}`, { headers });
+    const response = await axios.get(`https://api.github.com/users/${username}`);
     return response.data;
   } catch (error) {
-    
-    if (error.response) {
-      
-      if (error.response.status === 404) {
-        throw new Error('User not found');
-      } else if (error.response.status === 403) {
-        throw new Error('API rate limit exceeded. Consider adding a GitHub token.');
-      } else {
-        throw new Error(`GitHub API Error: ${error.response.status}`);
-      }
-    } else if (error.request) {
-    
-      throw new Error('No response from GitHub. Check your network connection.');
-    } else {
-      
-      throw new Error(`Error: ${error.message}`);
-    }
+    throw error;
   }
 };
 
-/**
- * Search for GitHub users (to be used in advanced search features)
- * @param {Object} params - Search parameters
- * @returns {Promise<Object>} - Search results from GitHub API
- */
-export const searchUsers = async (params) => {
+
+export const searchUsers = async (username, location, minRepos, page = 1) => {
   try {
-  
-    let queryString = params.username || '';
+    let query = username;
     
-    if (params.location) {
-      queryString += ` location:${params.location}`;
+    
+    if (location && location.trim() !== '') {
+      query += `+location:${location}`;
     }
     
-    if (params.minRepos) {
-      queryString += ` repos:>=${params.minRepos}`;
+    
+    if (minRepos && !isNaN(parseInt(minRepos))) {
+      query += `+repos:>=${minRepos}`;
     }
     
-    const headers = {};
-    if (import.meta.env.VITE_APP_GITHUB_API_KEY) {
-      headers.Authorization = `token ${import.meta.env.VITE_APP_GITHUB_API_KEY}`;
-    }
     
-    const response = await axios.get(`${BASE_URL}/search/users`, {
-      params: { q: queryString },
-      headers
-    });
+    const url = `https://api.github.com/search/users?q=${encodeURIComponent(query)}&per_page=10&page=${page}`;
     
+    const response = await axios.get(url);
     return response.data;
   } catch (error) {
-    console.error('Search error:', error);
+    throw error;
+  }
+};
+
+
+export const fetchUserRepos = async (username) => {
+  try {
+    const response = await axios.get(`https://api.github.com/users/${username}/repos?per_page=5&sort=updated`);
+    return response.data;
+  } catch (error) {
     throw error;
   }
 };

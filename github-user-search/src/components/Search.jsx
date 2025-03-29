@@ -1,119 +1,218 @@
 import { useState } from 'react';
-import { fetchUserData } from '../services/githubService';
+import { searchUsers } from '../services/githubService';
 
-const Search = () => {
-  const [username, setUsername] = useState('');
-  const [userData, setUserData] = useState(null);
+function Search() {
+  const [searchForm, setSearchForm] = useState({
+    username: '',
+    location: '',
+    minRepos: ''
+  });
+  const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const handleInputChange = (e) => {
-    setUsername(e.target.value);
+    const { name, value } = e.target;
+    setSearchForm({
+      ...searchForm,
+      [name]: value
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    if (!username.trim()) return;
-    
     setLoading(true);
     setError(null);
-    setUserData(null);
+    setCurrentPage(1);
     
     try {
-      const data = await fetchUserData(username);
-      setUserData(data);
-    } catch (err) {
-      console.error('Error fetching user data:', err);
-      setError('Looks like we cant find the user');
+      const results = await searchUsers(
+        searchForm.username, 
+        searchForm.location, 
+        searchForm.minRepos, 
+        1
+      );
+      setSearchResults(results);
+    } catch (error) {
+      setError('Error searching for users. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadMoreResults = async () => {
+    setLoading(true);
+    const nextPage = currentPage + 1;
+    
+    try {
+      const moreResults = await searchUsers(
+        searchForm.username, 
+        searchForm.location, 
+        searchForm.minRepos, 
+        nextPage
+      );
+      
+      setSearchResults({
+        ...moreResults,
+        items: [...searchResults.items, ...moreResults.items]
+      });
+      
+      setCurrentPage(nextPage);
+    } catch (error) {
+      setError('Error loading more results.');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="search-container">
-      <h1 className="text-2xl font-bold mb-4">GitHub User Search</h1>
-      
-      <form onSubmit={handleSubmit} className="mb-6">
-        <div className="flex">
-          <input
-            type="text"
-            placeholder="Enter GitHub username"
-            value={username}
-            onChange={handleInputChange}
-            className="flex-1 px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <button
-            type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded-r-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            Search
-          </button>
-        </div>
-      </form>
-
-      <div className="result-container">
-        {loading && <p className="text-gray-600">Loading...</p>}
+    <div className="max-w-4xl mx-auto p-4">
+      <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+        <h2 className="text-xl font-bold mb-4">GitHub User Search</h2>
         
-        {error && (
-          <div className="error-message bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-            {error}
-          </div>
-        )}
-        
-        {userData && !loading && !error && (
-          <div className="user-card bg-white shadow-md rounded-lg overflow-hidden">
-            <div className="flex flex-col md:flex-row">
-              <div className="md:w-1/3">
-                <img 
-                  src={userData.avatar_url} 
-                  alt={`${userData.login}'s avatar`} 
-                  className="w-full h-auto"
-                />
-              </div>
-              <div className="p-6 md:w-2/3">
-                <h2 className="text-xl font-bold mb-2">
-                  {userData.name || userData.login}
-                </h2>
-                <p className="text-gray-600 mb-4">@{userData.login}</p>
-                
-                {userData.bio && (
-                  <p className="text-gray-700 mb-4">{userData.bio}</p>
-                )}
-                
-                <div className="stats grid grid-cols-2 gap-4 mb-4">
-                  <div>
-                    <span className="text-gray-600">Followers:</span> {userData.followers}
-                  </div>
-                  <div>
-                    <span className="text-gray-600">Following:</span> {userData.following}
-                  </div>
-                  <div>
-                    <span className="text-gray-600">Repositories:</span> {userData.public_repos}
-                  </div>
-                  {userData.location && (
-                    <div>
-                      <span className="text-gray-600">Location:</span> {userData.location}
-                    </div>
-                  )}
-                </div>
-                
-                <a 
-                  href={userData.html_url} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="inline-block bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700"
-                >
-                  View Profile
-                </a>
-              </div>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
+                Username
+              </label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                value={searchForm.username}
+                onChange={handleInputChange}
+                placeholder="e.g. octocat"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                required
+              />
+            </div>
+            
+            <div>
+              <label htmlFor="location" className="block text-sm font-medium text-gray-700 mb-1">
+                Location
+              </label>
+              <input
+                type="text"
+                id="location"
+                name="location"
+                value={searchForm.location}
+                onChange={handleInputChange}
+                placeholder="e.g. San Francisco"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              />
+            </div>
+            
+            <div>
+              <label htmlFor="minRepos" className="block text-sm font-medium text-gray-700 mb-1">
+                Minimum Repositories
+              </label>
+              <input
+                type="number"
+                id="minRepos"
+                name="minRepos"
+                value={searchForm.minRepos}
+                onChange={handleInputChange}
+                placeholder="e.g. 10"
+                min="0"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              />
             </div>
           </div>
-        )}
+          
+          <div>
+            <button
+              type="submit"
+              className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              disabled={loading}
+            >
+              {loading ? 'Searching...' : 'Search'}
+            </button>
+          </div>
+        </form>
       </div>
+      
+      {error && (
+        <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-6">
+          <div className="flex">
+            <div className="ml-3">
+              <p className="text-sm text-red-700">{error}</p>
+            </div>
+          </div>
+        </div>
+      )}
+      
+      {searchResults.items && searchResults.items.length > 0 && (
+        <div className="bg-white rounded-lg shadow-md overflow-hidden">
+          <div className="px-6 py-4 border-b border-gray-200">
+            <h3 className="text-lg font-semibold">
+              Results ({searchResults.total_count} users found)
+            </h3>
+          </div>
+          
+          <ul className="divide-y divide-gray-200">
+            {searchResults.items.map(user => (
+              <li key={user.id} className="px-6 py-4 hover:bg-gray-50">
+                <div className="flex items-center">
+                  <img 
+                    src={user.avatar_url} 
+                    alt={`${user.login} avatar`} 
+                    className="h-10 w-10 rounded-full mr-4"
+                  />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium text-gray-900 truncate">
+                      {user.login}
+                    </p>
+                    <p className="text-sm text-gray-500 truncate">
+                      <a 
+                        href={user.html_url} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="hover:underline"
+                      >
+                        View Profile
+                      </a>
+                    </p>
+                  </div>
+                  <a
+                    href={`/user/${user.login}`}
+                    className="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  >
+                    Details
+                  </a>
+                </div>
+              </li>
+            ))}
+          </ul>
+          
+          {searchResults.total_count > searchResults.items.length && (
+            <div className="px-6 py-4 border-t border-gray-200">
+              <button
+                onClick={loadMoreResults}
+                className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                disabled={loading}
+              >
+                {loading ? 'Loading...' : 'Load More'}
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+      
+      {searchResults.items && searchResults.items.length === 0 && !loading && (
+        <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+          <div className="flex">
+            <div className="ml-3">
+              <p className="text-sm text-yellow-700">
+                No users found matching your search criteria.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
-};
+}
 
 export default Search;
