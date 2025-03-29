@@ -1,17 +1,15 @@
-// src/App.jsx
-import { useState } from 'react';
+import Search from './components/Search'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 
-
 const Header = () => (
-  <header className="app-header">
-    <div className="container">
-      <h1>GitHub User Search</h1>
+  <header className="bg-gray-800 text-white py-4">
+    <div className="container mx-auto px-4 flex justify-between items-center">
+      <h1 className="text-xl font-bold">GitHub User Search</h1>
       <nav>
-        <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/about">About</Link></li>
+        <ul className="flex space-x-6">
+          <li><Link to="/" className="hover:text-gray-300">Home</Link></li>
+          <li><Link to="/about" className="hover:text-gray-300">About</Link></li>
         </ul>
       </nav>
     </div>
@@ -19,70 +17,38 @@ const Header = () => (
 );
 
 const Footer = () => (
-  <footer className="app-footer">
-    <div className="container">
+  <footer className="bg-gray-100 py-4 mt-8">
+    <div className="container mx-auto px-4 text-center text-gray-600">
       <p>&copy; {new Date().getFullYear()} GitHub User Search App</p>
     </div>
   </footer>
 );
 
-
-const HomePage = () => {
-  const [searchQuery, setSearchQuery] = useState('');
-  
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
-  };
-  
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Searching for:', searchQuery);
-  };
-  
-  return (
-    <div className="home-page">
-      <div className="search-container">
-        <h2>Search for GitHub Users</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="search-input">
-            <input 
-              type="text" 
-              placeholder="Enter a GitHub username..." 
-              value={searchQuery} 
-              onChange={handleSearchChange} 
-            />
-            <button type="submit">Search</button>
-          </div>
-        </form>
-        
-        <div className="search-results">
-          {/* Results will be displayed here */}
-          {searchQuery && (
-            <p>Results for: {searchQuery}</p>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-};
+// Page Components
+const HomePage = () => (
+  <div className="home-page">
+    <Search />
+  </div>
+);
 
 const AboutPage = () => (
-  <div className="about-page">
-    <h2>About This App</h2>
-    <p>This application allows you to search for GitHub users using the GitHub API.</p>
-    <p>You can view basic profile information and navigate to their GitHub profiles.</p>
+  <div className="about-page max-w-3xl mx-auto bg-white shadow-md rounded-lg p-6">
+    <h2 className="text-2xl font-bold mb-4">About This App</h2>
+    <p className="mb-4">This application allows you to search for GitHub users using the GitHub API.</p>
+    <p className="mb-4">You can view basic profile information and navigate to their GitHub profiles.</p>
     <p>Built with React and the GitHub API.</p>
   </div>
 );
 
+// Main App Component
 function App() {
   return (
     <Router>
-      <div className="app">
+      <div className="app min-h-screen flex flex-col bg-gray-50">
         <Header />
         
-        <main className="app-main">
-          <div className="container">
+        <main className="flex-grow py-8">
+          <div className="container mx-auto px-4">
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/about" element={<AboutPage />} />
