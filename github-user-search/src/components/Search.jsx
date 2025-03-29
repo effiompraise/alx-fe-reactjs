@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { searchUsers } from '../services/githubService';
+import { searchUsers, fetchUserData } from '../services/githubService';
 
 function Search() {
   const [searchForm, setSearchForm] = useState({
@@ -7,10 +7,13 @@ function Search() {
     location: '',
     minRepos: ''
   });
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState({ items: [], total_count: 0 });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [userDetails, setUserDetails] = useState(null);
+  const [detailsLoading, setDetailsLoading] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -34,6 +37,8 @@ function Search() {
         1
       );
       setSearchResults(results);
+      setUserDetails(null);
+      setSelectedUser(null);
     } catch (error) {
       setError('Error searching for users. Please try again.');
     } finally {
@@ -53,16 +58,30 @@ function Search() {
         nextPage
       );
       
-      setSearchResults({
+      setSearchResults(prev => ({
         ...moreResults,
-        items: [...searchResults.items, ...moreResults.items]
-      });
+        items: [...prev.items, ...moreResults.items]
+      }));
       
       setCurrentPage(nextPage);
     } catch (error) {
       setError('Error loading more results.');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleViewDetails = async (username) => {
+    setDetailsLoading(true);
+    setError(null);
+    try {
+      const data = await fetchUserData(username);
+      setUserDetails(data);
+      setSelectedUser(username);
+    } catch (error) {
+      setError('Error fetching user details');
+    } finally {
+      setDetailsLoading(false);
     }
   };
 
@@ -175,13 +194,39 @@ function Search() {
                       </a>
                     </p>
                   </div>
-                  <a
-                    href={`/user/${user.login}`}
+                  <button
+                    onClick={() => handleViewDetails(user.login)}
                     className="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    disabled={detailsLoading}
                   >
-                    Details
-                  </a>
+                    {detailsLoading && selectedUser === user.login ? 'Loading...' : 'Details'}
+                  </button>
                 </div>
+
+                {userDetails && selectedUser === user.login && (
+                  <div className="mt-4 ml-14 bg-gray-50 p-4 rounded-lg">
+                    <h4 className="font-medium mb-2">Detailed Information:</h4>
+                    <div className="grid grid-cols-2 gap-4 text-sm">
+                      <div>
+                        <p>Name: {userDetails.name || 'N/A'}</p>
+                        <p>Public Repos: {userDetails.public_repos}</p>
+                        <p>Followers: {userDetails.followers}</p>
+                      </div>
+                      <div>
+                        <p>Following: {userDetails.following}</p>
+                        <p>Created At: {new Date(userDetails.created_at).toLocaleDateString()}</p>
+                        {userDetails.blog && (
+                          <a href={userDetails.blog} className="text-blue-600 hover:underline">
+                            Website
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                    {userDetails.bio && (
+                      <p className="mt-3 text-gray-600 text-sm">Bio: {userDetails.bio}</p>
+                    )}
+                  </div>
+                )}
               </li>
             ))}
           </ul>
