@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import Search from './components/Search'
+import UserDetail from './components/UserDetail'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 

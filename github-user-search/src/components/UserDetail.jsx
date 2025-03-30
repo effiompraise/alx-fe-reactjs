@@ -13,7 +13,6 @@ function UserDetail({ username, onClose }) {
       setError(null);
       
       try {
-        
         const [user, repos] = await Promise.all([
           fetchUserData(username),
           fetchUserRepos(username)

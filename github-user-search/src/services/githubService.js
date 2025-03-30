@@ -9,7 +9,6 @@ export const fetchUserData = async (username) => {
   }
 };
 
-
 export const searchUsers = async (username, location, minRepos, page = 1) => {
   try {
     let query = username;
